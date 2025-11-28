@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import com.example.data.ChucNangSQL;
+import com.example.model.tblSinhVien;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -39,10 +40,14 @@ public class Sua extends HttpServlet {
         String emailSV = req.getParameter("EmailSV");
         String maLop = req.getParameter("MaLop");
         String soDienThoaiSV = req.getParameter("SoDienThoaiSV");
+        String trangThaiSV = req.getParameter("TrangThaiSV");
         Part fileAnh = req.getPart("AnhSV");
         sql.themFile(fileAnh, req.getServletContext());
         // !TODO: Xử lý cơ sở dữ liệu trước
         // sql.suaSinhVien(mssv, hoTenSV, ngaySinhSV, gioiTinhSV, queQuanSV, emailSV,
+        tblSinhVien sv = new tblSinhVien(mssv, hoTenSV, ngaySinhSV, gioiTinhSV, queQuanSV, emailSV, maLop,
+                soDienThoaiSV, fileAnh.getSubmittedFileName(), trangThaiSV);
+        sv.sua();
         // maLop, soDienThoaiSV,
         // fileAnh.getSubmittedFileName());
         req.getSession().setAttribute("thongBao", "Sửa sinh viên thành công");
