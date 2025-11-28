@@ -2,6 +2,8 @@ package com.example.model;
 
 import com.example.data.ChucNangSQL;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 public class tblVien {
     ChucNangSQL sql = new ChucNangSQL();
 
@@ -11,6 +13,7 @@ public class tblVien {
     public String soDienThoaiVien;
     public String emailVien;
     public String ngayThanhLapVien;
+    public HttpServletRequest request;
 
     public tblVien() {
     }
@@ -45,12 +48,10 @@ public class tblVien {
     }
 
     public void xoa(String maVienString) {
-        sql.xoaBanGhi("tblKhoa", "MaVien = '" + maVienString + "'");
         sql.xoaBanGhi("tblVien", "MaVien = '" + maVienString + "'");
     }
 
     public void xoa() {
-        sql.xoaBanGhi("tblKhoa", "MaVien = '" + this.maVien + "'");
         sql.xoaBanGhi("tblVien", "MaVien = '" + this.maVien + "'");
     }
 
@@ -72,10 +73,16 @@ public class tblVien {
     }
 
     public void setMaVien(String maVien) {
-        if (!sql.kiemTraKhoaChinh("tblVien", "MaVien", maVien)) {
-            this.maVien = maVien;
+        System.err.println("vao set ma vien");
+        if (sql.kiemTraKhoaChinh("tblVien", "MaVien", maVien)) {
+            request.setAttribute("loiMaVien", "Mã viện đã tồn tại");
+        } else if (maVien == null || maVien.trim().isEmpty()) {
+            request.setAttribute("loiMaVien", "Mã viện cac không được để trống");
+
+        } else {
+            request.setAttribute("loiMaVien", "cac");
         }
-        System.err.println("Lỗi: Trùng khóa chính Mã Viện");
+
     }
 
     // ! lay va sua cac thuoc tinh
