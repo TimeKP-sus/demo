@@ -76,6 +76,7 @@ prefix="c" %>
                       <th class="col text-center" scope="col">Lớp</th>
                       <th class="col text-center" scope="col">Số điện thoại</th>
                       <th class="col text-center" scope="col">Ảnh</th>
+                      <th class="col text-center" scope="col">Trạng thái</th>
                       <th class="col text-center" scope="col">Hành động</th>
                     </tr>
                   </thead>
@@ -112,6 +113,9 @@ prefix="c" %>
                         </td>
                         <td class="col text-center" scope="row">
                           <c:out value="${sv.SoDienThoaiSV}" />
+                        </td>
+                        <td class="col text-center" scope="row">
+                          <c:out value="${sv.TrangThaiSV}" />
                         </td>
                         <td class="col text-center" scope="row">
                           <img

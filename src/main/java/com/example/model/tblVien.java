@@ -29,30 +29,57 @@ public class tblVien {
         sql.themVien(maVien, tenVien, tenTruongVien, soDienThoaiVien, emailVien, ngayThanhLapVien);
     }
 
+    public void them() {
+        sql.themVien(this.maVien, this.tenVien, this.tenTruongVien, this.soDienThoaiVien, this.emailVien,
+                this.ngayThanhLapVien);
+    }
+
     public void sua(tblVien vien) {
-        sql.suaVien(maVien, tenVien, tenTruongVien, soDienThoaiVien, emailVien, ngayThanhLapVien);
+        sql.suaVien(vien.maVien, vien.tenVien, vien.tenTruongVien, vien.soDienThoaiVien, vien.emailVien,
+                vien.ngayThanhLapVien);
     }
 
-    public void xoa(String maVien) {
-        sql.xoaBanGhi("tblVien", "MaVien = '" + maVien + "'");
+    public void sua() {
+        sql.suaVien(this.maVien, this.tenVien, this.tenTruongVien, this.soDienThoaiVien, this.emailVien,
+                this.ngayThanhLapVien);
     }
 
-    public void truyVanTheoMa_1C(String maVien, String tenCotCanLay) {
-        sql.timKiem(tenCotCanLay, "tblVien", "MaVien ='" + maVien + "'");
+    public void xoa(String maVienString) {
+        sql.xoaBanGhi("tblVien", "MaVien = '" + maVienString + "'");
     }
 
-    public void truyVanTheoMa(String maVien) {
-        sql.timKiem("*", "tblVien", "MaVien ='" + maVien + "'");
+    public void xoa() {
+        sql.xoaBanGhi("tblVien", "MaVien = '" + this.maVien + "'");
+    }
+
+    public String truyVanTheoMa_1C(String tenCotCanLay) {
+        return sql.timKiem(tenCotCanLay, "tblVien", "MaVien ='" + this.maVien + "'");
+    }
+
+    public String truyVanTheoMa_1C(String maVienString, String tenCotCanLay) {
+        return sql.timKiem(tenCotCanLay, "tblVien", "MaVien ='" + maVienString + "'");
+    }
+
+    public void truyVanTheoMa(String maVienString) {
+        this.maVien = maVienString;
+
+        this.tenVien = truyVanTheoMa_1C(this.maVien, "TenVien");
+        this.tenTruongVien = truyVanTheoMa_1C(this.maVien, "TenTruongVien");
+        this.soDienThoaiVien = truyVanTheoMa_1C(this.maVien, "SoDienThoaiVien");
+        this.emailVien = truyVanTheoMa_1C(this.maVien, "EmailVien");
+        this.ngayThanhLapVien = truyVanTheoMa_1C(this.maVien, "NgayThanhLapVien");
     }
 
     // ! lay va sua cac thuoc tinh
-
     public String getMaVien() {
         return maVien;
     }
 
     public void setMaVien(String maVien) {
-        this.maVien = maVien;
+        if (!sql.kiemTraKhoaChinh("tblVien", "MaVien", maVien)) {
+            this.maVien = maVien;
+        }
+        System.err.println("Lỗi: Trùng khóa chính Mã Viện");
     }
 
     public String getTenVien() {

@@ -41,9 +41,10 @@ public class Sua extends HttpServlet {
         String soDienThoaiSV = req.getParameter("SoDienThoaiSV");
         Part fileAnh = req.getPart("AnhSV");
         sql.themFile(fileAnh, req.getServletContext());
-
-        sql.suaSinhVien(mssv, hoTenSV, ngaySinhSV, gioiTinhSV, queQuanSV, emailSV, maLop, soDienThoaiSV,
-                fileAnh.getSubmittedFileName());
+        // !TODO: Xử lý cơ sở dữ liệu trước
+        // sql.suaSinhVien(mssv, hoTenSV, ngaySinhSV, gioiTinhSV, queQuanSV, emailSV,
+        // maLop, soDienThoaiSV,
+        // fileAnh.getSubmittedFileName());
         req.getSession().setAttribute("thongBao", "Sửa sinh viên thành công");
         resp.sendRedirect(req.getContextPath() + "/admin/danhsachsinhvien/index");
     }

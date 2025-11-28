@@ -84,8 +84,10 @@ public class Them extends HttpServlet {
         }
         sql.themFile(fileAnh, req.getServletContext());
         if (fileAnh != null) {
-            sql.themSinhVien(mssv, hoTenSV, ngaySinhSV, gioiTinhSV, queQuanSV, emailSV, maLop, soDienThoaiSV,
-                    fileAnh.getSubmittedFileName());
+            // !TODO: Xử lý cơ sở dữ liệu trước
+            // sql.themSinhVien(mssv, hoTenSV, ngaySinhSV, gioiTinhSV, queQuanSV, emailSV,
+            // maLop, soDienThoaiSV,
+            // fileAnh.getSubmittedFileName());
         }
         req.getSession().setAttribute("thongBao", "Thêm sinh viên thành công");
         resp.sendRedirect(req.getContextPath() + "/admin/danhsachsinhvien/index");

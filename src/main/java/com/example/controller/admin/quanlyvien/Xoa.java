@@ -22,7 +22,8 @@ public class Xoa extends HttpServlet {
         String maVien = req.getParameter("MaVien");
 
         tblVien vien = new tblVien();
-        vien.xoa(maVien);
+        vien.maVien = maVien;
+        vien.xoa();
 
         req.setAttribute("thongBao", "Xóa viện thành công");
         req.getRequestDispatcher(req.getContextPath() + "/admin/danhsachvien").forward(req, resp);

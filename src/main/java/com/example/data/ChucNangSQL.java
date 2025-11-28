@@ -219,11 +219,12 @@ public class ChucNangSQL {
      * SQL: INSERT INTO tblGiangVien (...)
      */
     public void themGiangVien(String msgv, String hoTen, String ngaySinh, String gioiTinh, String queQuan, String email,
-            String maNganh, String soDienThoai, String anhGV) {
+            String maNganh, String soDienThoai, String anhGV, String trangThaiGV) {
         ql.ChayLenhSQL(
-                "INSERT INTO tblGiangVien (MSGV, HoTenGV, NgaySinhGV, GioiTinhGV, QueQuanGV, EmailGV, MaNganh, SoDienThoaiGV, AnhGV) VALUES ('"
+                "INSERT INTO tblGiangVien (MSGV, HoTenGV, NgaySinhGV, GioiTinhGV, QueQuanGV, EmailGV, MaNganh, SoDienThoaiGV, AnhGV, TrangThaiGV) VALUES ('"
                         + msgv + "', '" + hoTen + "', '" + ngaySinh + "', '" + gioiTinh + "', '" + queQuan + "', '"
-                        + email + "', '" + maNganh + "', '" + soDienThoai + "', '" + anhGV + "');");
+                        + email + "', '" + maNganh + "', '" + soDienThoai + "', '" + anhGV + "', '" + trangThaiGV
+                        + "');");
     }
 
     /**
@@ -231,10 +232,11 @@ public class ChucNangSQL {
      * SQL: UPDATE tblGiangVien SET ... WHERE MSGV='...'
      */
     public void suaGiangVien(String msgvCanSua, String hoTen, String ngaySinh, String gioiTinh, String queQuan,
-            String email, String maNganh, String soDienThoai, String anhGV) {
+            String email, String maNganh, String soDienThoai, String anhGV, String trangThaiGV) {
         ql.ChayLenhSQL("UPDATE tblGiangVien SET HoTenGV='" + hoTen + "', NgaySinhGV='" + ngaySinh + "', GioiTinhGV='"
                 + gioiTinh + "', QueQuanGV='" + queQuan + "', EmailGV='" + email + "', MaNganh='" + maNganh
-                + "', SoDienThoaiGV='" + soDienThoai + "', AnhGV='" + anhGV + "' WHERE MSGV='" + msgvCanSua + "';");
+                + "', SoDienThoaiGV='" + soDienThoai + "', AnhGV='" + anhGV + "', TrangThaiGV='" + trangThaiGV
+                + "' WHERE MSGV='" + msgvCanSua + "';");
     }
 
     // =========================
@@ -246,11 +248,12 @@ public class ChucNangSQL {
      * SQL: INSERT INTO tblSinhVien (...)
      */
     public void themSinhVien(String mssv, String hoTen, String ngaySinh, String gioiTinh, String queQuan, String email,
-            String maLop, String soDienThoai, String anhSV) {
+            String maLop, String soDienThoai, String anhSV, String trangThaiSV) {
         ql.ChayLenhSQL(
-                "INSERT INTO tblSinhVien (MSSV, HoTenSV, NgaySinhSV, GioiTinhSV, QueQuanSV, EmailSV, MaLop, SoDienThoaiSV, AnhSV) VALUES ('"
+                "INSERT INTO tblSinhVien (MSSV, HoTenSV, NgaySinhSV, GioiTinhSV, QueQuanSV, EmailSV, MaLop, SoDienThoaiSV, AnhSV, TrangThaiSV) VALUES ('"
                         + mssv + "', '" + hoTen + "', '" + ngaySinh + "', '" + gioiTinh + "', '" + queQuan + "', '"
-                        + email + "', '" + maLop + "', '" + soDienThoai + "', '" + anhSV + "');");
+                        + email + "', '" + maLop + "', '" + soDienThoai + "', '" + anhSV + "', '" + trangThaiSV
+                        + "');");
     }
 
     /**
@@ -258,10 +261,11 @@ public class ChucNangSQL {
      * SQL: UPDATE tblSinhVien SET ... WHERE MSSV='...'
      */
     public void suaSinhVien(String mssvCanSua, String hoTen, String ngaySinh, String gioiTinh, String queQuan,
-            String email, String maLop, String soDienThoai, String anhSV) {
+            String email, String maLop, String soDienThoai, String anhSV, String trangThaiSV) {
         ql.ChayLenhSQL("UPDATE tblSinhVien SET HoTenSV='" + hoTen + "', NgaySinhSV='" + ngaySinh + "', GioiTinhSV='"
                 + gioiTinh + "', QueQuanSV='" + queQuan + "', EmailSV='" + email + "', MaLop='" + maLop
-                + "', SoDienThoaiSV='" + soDienThoai + "', AnhSV='" + anhSV + "' WHERE MSSV='" + mssvCanSua + "';");
+                + "', SoDienThoaiSV='" + soDienThoai + "', AnhSV='" + anhSV + "', TrangThaiSV='" + trangThaiSV
+                + "' WHERE MSSV='" + mssvCanSua + "';");
     }
 
     // =========================
