@@ -86,16 +86,6 @@ CREATE TABLE IF NOT EXISTS tblLopHocPhan (
     SoBuoi INTEGER NULL,
     PhongHoc TEXT NULL
 );
---tblDiemLopHocPhan
-CREATE TABLE IF NOT EXISTS tblDiemLopHocPhan (
-    IDDiemLopHocPhan INTEGER PRIMARY KEY AUTOINCREMENT,
-    MSSV TEXT NULL,
-    MaLopHocPhan TEXT NULL,
-    DiemQuaTrinh INTEGER NULL,
-    DiemThi INTEGER NULL,
-    DiemTongKet INTEGER NULL
-);
-
 --tblDangKyHocPhan
 CREATE TABLE IF NOT EXISTS tblDangKyHocPhan (
     IDDangKyHocPhan INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -103,6 +93,16 @@ CREATE TABLE IF NOT EXISTS tblDangKyHocPhan (
     MaLopHocPhan TEXT NULL,
     TrangThai TEXT NULL
 );
+--tblDiemLopHocPhan
+CREATE TABLE IF NOT EXISTS tblDiemLopHocPhan (
+    IDDiemLopHocPhan INTEGER PRIMARY KEY AUTOINCREMENT,
+    MSSV TEXT NULL,
+    IDDangKyHocPhan INTEGER NULL,
+    DiemQuaTrinh REAL NULL,
+    DiemThi REAL NULL,
+    DiemTongKet REAL NULL
+);
+
 --tblDiemDanh 
 CREATE TABLE IF NOT EXISTS tblDiemDanh (
     IDDiemDanh INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -169,10 +169,10 @@ INSERT INTO tblLopHocPhan (MaLopHocPhan, TenLopHocPhan, MaHocPhan, MSGV, ThoiGia
 ('LHP003', 'Quản trị dự án', 'HP003', 'GV003', 'Thứ 4, 13h30', 12, 'C303');
 
 -- Thêm bản ghi cho tblDiemLopHocPhan
-INSERT INTO tblDiemLopHocPhan (MSSV, MaLopHocPhan, DiemQuaTrinh, DiemThi, DiemTongKet) VALUES
-('SV001', 'LHP001', 8, 7, 7),
-('SV002', 'LHP002', 9, 8, 8),
-('SV003', 'LHP003', 7, 6, 6);
+INSERT INTO tblDiemLopHocPhan (MSSV, IDDangKyHocPhan, DiemQuaTrinh, DiemThi, DiemTongKet) VALUES
+('SV001', 1, 8, 7, 7),
+('SV002', 2, 9, 8, 8),
+('SV003', 3, 7, 6, 6);
 
 -- Thêm bản ghi cho tblDangKyHocPhan
 INSERT INTO tblDangKyHocPhan (MSSV, MaLopHocPhan, TrangThai) VALUES

@@ -189,25 +189,111 @@ public class ChucNangSQL {
      * Thêm lớp học phần mới vào hệ thống.
      * SQL: INSERT INTO tblLopHocPhan (...)
      */
-    public void themLopHocPhan(String maLopHocPhan, String tenLopHocPhan, Integer soTinChi, String msgv,
+    public void themLopHocPhan(String maLopHocPhan, String tenLopHocPhan, String maHocPhan, String msgv,
             String thoiGian, Integer soBuoi, String phongHoc) {
         ql.ChayLenhSQL(
-                "INSERT INTO tblLopHocPhan (MaLopHocPhan, TenLopHocPhan, SoTinChi, MSGV, ThoiGian, SoBuoi, PhongHoc) VALUES ('"
-                        + maLopHocPhan + "', '" + tenLopHocPhan + "', " + (soTinChi == null ? "NULL" : soTinChi) + ", '"
-                        + msgv + "', '" + thoiGian + "', " + (soBuoi == null ? "NULL" : soBuoi) + ", '" + phongHoc
-                        + "');");
+                "INSERT INTO tblLopHocPhan (MaLopHocPhan, TenLopHocPhan, MaHocPhan, MSGV, ThoiGian, SoBuoi, PhongHoc) VALUES ('"
+                        + maLopHocPhan + "', '" + tenLopHocPhan + "', '" + maHocPhan + "', '" + msgv + "', '" + thoiGian
+                        + "', "
+                        + (soBuoi == null ? "NULL" : soBuoi) + ", '" + phongHoc + "');");
     }
 
     /**
      * Sửa thông tin lớp học phần.
      * SQL: UPDATE tblLopHocPhan SET ... WHERE MaLopHocPhan='...'
      */
-    public void suaLopHocPhan(String maLopHocPhan, String tenLopHocPhan, Integer soTinChi, String msgv, String thoiGian,
+    public void suaLopHocPhan(String maLopHocPhan, String tenLopHocPhan, String maHocPhan, String msgv, String thoiGian,
             Integer soBuoi, String phongHoc) {
-        ql.ChayLenhSQL("UPDATE tblLopHocPhan SET TenLopHocPhan='" + tenLopHocPhan + "', SoTinChi="
-                + (soTinChi == null ? "NULL" : soTinChi) + ", MSGV='" + msgv + "', ThoiGian='" + thoiGian + "', SoBuoi="
-                + (soBuoi == null ? "NULL" : soBuoi) + ", PhongHoc='" + phongHoc + "' WHERE MaLopHocPhan='"
-                + maLopHocPhan + "';");
+        ql.ChayLenhSQL("UPDATE tblLopHocPhan SET TenLopHocPhan='" + tenLopHocPhan + "', MaHocPhan='" + maHocPhan
+                + "', MSGV='" + msgv + "', ThoiGian='" + thoiGian + "', SoBuoi=" + (soBuoi == null ? "NULL" : soBuoi)
+                + ", PhongHoc='" + phongHoc + "' WHERE MaLopHocPhan='" + maLopHocPhan + "';");
+    }
+
+    // =========================
+    // Chức năng Học phần
+    // =========================
+
+    public void themHocPhan(String maHocPhan, String tenHocPhan, Integer soTinChi, String maNganh, String moTaHocPhan) {
+        ql.ChayLenhSQL("INSERT INTO tblHocPhan (MaHocPhan, TenHocPhan, SoTinChi, MaNganh, MoTaHocPhan) VALUES ('" +
+                maHocPhan + "', '" + tenHocPhan + "', " + (soTinChi == null ? "NULL" : soTinChi) + ", '" + maNganh
+                + "', '"
+                + moTaHocPhan + "');");
+    }
+
+    public void suaHocPhan(String maHocPhanCanSua, String tenHocPhan, Integer soTinChi, String maNganh,
+            String moTaHocPhan) {
+        ql.ChayLenhSQL("UPDATE tblHocPhan SET TenHocPhan='" + tenHocPhan + "', SoTinChi="
+                + (soTinChi == null ? "NULL" : soTinChi)
+                + ", MaNganh='" + maNganh + "', MoTaHocPhan='" + moTaHocPhan + "' WHERE MaHocPhan='" + maHocPhanCanSua
+                + "';");
+    }
+
+    // =========================
+    // Chức năng Đăng ký học phần
+    // =========================
+
+    public void themDangKyHocPhan(String mssv, String maLopHocPhan, String trangThai) {
+        ql.ChayLenhSQL("INSERT INTO tblDangKyHocPhan (MSSV, MaLopHocPhan, TrangThai) VALUES ('" + mssv + "', '"
+                + maLopHocPhan + "', '" + (trangThai == null ? "" : trangThai) + "');");
+    }
+
+    public void suaDangKyHocPhan(String idDangKy, String mssv, String maLopHocPhan, String trangThai) {
+        ql.ChayLenhSQL(
+                "UPDATE tblDangKyHocPhan SET MSSV='" + mssv + "', MaLopHocPhan='" + maLopHocPhan + "', TrangThai='"
+                        + (trangThai == null ? "" : trangThai) + "' WHERE IDDangKyHocPhan=" + idDangKy + ";");
+    }
+
+    // =========================
+    // Chức năng Điểm lớp học phần
+    // =========================
+
+    public void themDiemLopHocPhan(String mssv, String idDangKyHocPhan, Double diemQuaTrinh, Double diemThi,
+            Double diemTongKet) {
+        ql.ChayLenhSQL(
+                "INSERT INTO tblDiemLopHocPhan (MSSV, IDDangKyHocPhan, DiemQuaTrinh, DiemThi, DiemTongKet) VALUES ('" +
+                        mssv + "', " + (idDangKyHocPhan == null ? "NULL" : idDangKyHocPhan) + ", "
+                        + (diemQuaTrinh == null ? "NULL" : diemQuaTrinh) + ", " + (diemThi == null ? "NULL" : diemThi)
+                        + ", " + (diemTongKet == null ? "NULL" : diemTongKet) + ");");
+    }
+
+    public void suaDiemLopHocPhan(String idDiem, String mssv, String idDangKyHocPhan, Double diemQuaTrinh,
+            Double diemThi, Double diemTongKet) {
+        ql.ChayLenhSQL("UPDATE tblDiemLopHocPhan SET MSSV='" + mssv + "', IDDangKyHocPhan="
+                + (idDangKyHocPhan == null ? "NULL" : idDangKyHocPhan) + ", DiemQuaTrinh="
+                + (diemQuaTrinh == null ? "NULL" : diemQuaTrinh) + ", DiemThi=" + (diemThi == null ? "NULL" : diemThi)
+                + ", DiemTongKet=" + (diemTongKet == null ? "NULL" : diemTongKet) + " WHERE IDDiemLopHocPhan=" + idDiem
+                + ";");
+    }
+
+    // =========================
+    // Chức năng Điểm danh
+    // =========================
+
+    public void themDiemDanh(String mssv, String idLopHocPhan, String chuoiDiemDanh, String ghiChu) {
+        ql.ChayLenhSQL("INSERT INTO tblDiemDanh (MSSV, IDLopHocPhan, ChuoiDiemDanh, GhiChu) VALUES ('" + mssv + "', "
+                + (idLopHocPhan == null ? "NULL" : idLopHocPhan) + ", '" + (chuoiDiemDanh == null ? "" : chuoiDiemDanh)
+                + "', '" + (ghiChu == null ? "" : ghiChu) + "');");
+    }
+
+    public void suaDiemDanh(String idDiemDanh, String mssv, String idLopHocPhan, String chuoiDiemDanh, String ghiChu) {
+        ql.ChayLenhSQL("UPDATE tblDiemDanh SET MSSV='" + mssv + "', IDLopHocPhan="
+                + (idLopHocPhan == null ? "NULL" : idLopHocPhan) + ", ChuoiDiemDanh='"
+                + (chuoiDiemDanh == null ? "" : chuoiDiemDanh) + "', GhiChu='" + (ghiChu == null ? "" : ghiChu)
+                + "' WHERE IDDiemDanh=" + idDiemDanh + ";");
+    }
+
+    // =========================
+    // Chức năng Tài khoản
+    // =========================
+
+    public void themTaiKhoan(String maNguoiDung, String matKhau, String chucVu) {
+        ql.ChayLenhSQL("INSERT INTO tblTaiKhoan (MaNguoiDung, MatKhau, ChucVu) VALUES ('" + maNguoiDung + "', '"
+                + matKhau + "', '" + (chucVu == null ? "" : chucVu) + "');");
+    }
+
+    public void suaTaiKhoan(String maNguoiDung, String matKhau, String chucVu) {
+        ql.ChayLenhSQL("UPDATE tblTaiKhoan SET MatKhau='" + matKhau + "', ChucVu='" + (chucVu == null ? "" : chucVu)
+                + "' WHERE MaNguoiDung='" + maNguoiDung + "';");
     }
 
     // =========================
@@ -442,6 +528,17 @@ public class ChucNangSQL {
         String[] parts = ngayThangNamSQL.split("-");
         if (parts.length > 2) {
             return parts[2] + "/" + parts[1] + "/" + parts[0];
+        }
+        return ngayThangNamSQL;
+    }
+
+    // =========================
+    // * Đổi định dạng hiển thị ngày tháng năm cho view
+    // =========================
+    public String doiDinhDangNgay_View(String ngayThangNamSQL) {
+        String[] parts = ngayThangNamSQL.split("/");
+        if (parts.length == 3) {
+            return parts[2] + "-" + parts[1] + "-" + parts[0];
         }
         return ngayThangNamSQL;
     }

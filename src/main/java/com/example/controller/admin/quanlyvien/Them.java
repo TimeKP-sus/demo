@@ -35,61 +35,32 @@ public class Them extends HttpServlet {
         final String soDienThoaiVien = req.getParameter("SoDienThoaiVien").trim();
         final String emailVien = req.getParameter("EmailVien").trim();
         final String ngayThanhLapVien = sql.doiDinhDangNgay(req.getParameter("NgayThanhLapVien").trim());
-        boolean loi = false;
 
-        // if (sql.kiemTraKhoaChinh("tblVien",
-        // "MaVien", maVien)) {
-        // req.setAttribute("loiMaVien", "Mã viện đã tồn tại");
-        // loi = true;
-        // }
-        // if (maVien == null || maVien.trim().isEmpty()) {
-        // req.setAttribute("loiMaVien", "Mã viện không được để trống");
-        // loi = true;
-        // }
-        // if (tenVien == null || tenVien.trim().isEmpty()) {
-        // req.setAttribute("loiTenVien", "Tên viện không được để trống");
-        // loi = true;
-        // }
-        // if (tenTruongVien == null || tenTruongVien.trim().isEmpty()) {
-        // req.setAttribute("loiTenTruongVien", "Tên trưởng viện không được để trống");
-        // loi = true;
-        // }
-        // if (soDienThoaiVien == null || soDienThoaiVien.trim().isEmpty()) {
-        // req.setAttribute("loiSoDienThoaiVien", "Số điện thoại viện không được để
-        // trống");
-        // loi = true;
-        // }
-        // if (emailVien == null || emailVien.trim().isEmpty()) {
-        // req.setAttribute("loiEmailVien", "Email viện không được để trống");
-        // loi = true;
-        // }
-
-        // if (loi) {
-        // // Trả lại dữ liệu đã nhập
-        // req.setAttribute("MaVien", maVien);
-        // req.setAttribute("TenVien", tenVien);
-        // req.setAttribute("TenTruongVien", tenTruongVien);
-        // req.setAttribute("SoDienThoaiVien", soDienThoaiVien);
-        // req.setAttribute("EmailVien", emailVien);
-        // req.setAttribute("NgayThanhLapVien",
-        // ngayThanhLapVien);
-        // // System.err.println("Lỗi rồi");
-        // req.getRequestDispatcher("/admin/danhsachvien/them.jsp").forward(req, resp);
-        // return;
-        // }
-
-        tblVien vien = new tblVien(maVien, tenVien, tenTruongVien,
-                soDienThoaiVien, emailVien, ngayThanhLapVien);
-        vien.request = req;
+        tblVien vien = new tblVien(req);
         vien.setMaVien(maVien);
-        // vien.them(vien);
+        vien.setTenVien(tenVien);
+        vien.setTenTruongVien(tenTruongVien);
+        vien.setSoDienThoaiVien(soDienThoaiVien);
+        vien.setEmailVien(emailVien);
+        vien.setNgayThanhLapVien(ngayThanhLapVien);
 
-        // sql.themVien(maVien, tenVien, tenTruongVien, soDienThoaiVien, emailVien,
-        // ngayThanhLapVien);
-        req.getRequestDispatcher("/admin/danhsachvien/them.jsp").forward(req, resp);
-        // return;
-        // req.getSession().setAttribute("thongBao", "Thêm viện thành công");
-        // resp.sendRedirect(req.getContextPath() + "/admin/danhsachvien/index");
+        if (vien.bao_loi) {
+            // Trả lại dữ liệu đã nhập
+            req.setAttribute("MaVien", maVien);
+            req.setAttribute("TenVien", tenVien);
+            req.setAttribute("TenTruongVien", tenTruongVien);
+            req.setAttribute("SoDienThoaiVien", soDienThoaiVien);
+            req.setAttribute("EmailVien", emailVien);
+            req.setAttribute("NgayThanhLapVien",
+                    ngayThanhLapVien);
+            // System.err.println("Lỗi rồi");
+            req.getRequestDispatcher("/admin/danhsachvien/them.jsp").forward(req, resp);
+            return;
+        } else {
+            vien.them();
+        }
+        req.getSession().setAttribute("thongBao", "Thêm viện thành công");
+        resp.sendRedirect(req.getContextPath() + "/admin/danhsachvien/index");
     }
 
 }

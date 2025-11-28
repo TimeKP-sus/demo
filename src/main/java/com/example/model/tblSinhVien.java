@@ -1,0 +1,141 @@
+package com.example.model;
+
+import com.example.data.ChucNangSQL;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+public class tblSinhVien {
+    ChucNangSQL sql = new ChucNangSQL();
+
+    public String mssv;
+    public String hoTenSV;
+    public String ngaySinhSV;
+    public String gioiTinhSV;
+    public String queQuanSV;
+    public String emailSV;
+    public String maLop;
+    public String soDienThoaiSV;
+    public String anhSV;
+    public String trangThaiSV;
+    public HttpServletRequest request;
+    public Boolean bao_loi = false;
+
+    public tblSinhVien() {
+    }
+
+    public tblSinhVien(String mssv, String hoTenSV, String ngaySinhSV, String gioiTinhSV, String queQuanSV,
+            String emailSV, String maLop, String soDienThoaiSV, String anhSV, String trangThaiSV) {
+        this.mssv = mssv;
+        this.hoTenSV = hoTenSV;
+        this.ngaySinhSV = ngaySinhSV;
+        this.gioiTinhSV = gioiTinhSV;
+        this.queQuanSV = queQuanSV;
+        this.emailSV = emailSV;
+        this.maLop = maLop;
+        this.soDienThoaiSV = soDienThoaiSV;
+        this.anhSV = anhSV;
+        this.trangThaiSV = trangThaiSV;
+    }
+
+    public tblSinhVien(HttpServletRequest req) {
+        this.request = req;
+    }
+
+    public void them() {
+        sql.themSinhVien(mssv, hoTenSV, ngaySinhSV, gioiTinhSV, queQuanSV, emailSV, maLop, soDienThoaiSV, anhSV,
+                trangThaiSV);
+    }
+
+    public void them(tblSinhVien s) {
+        sql.themSinhVien(s.mssv, s.hoTenSV, s.ngaySinhSV, s.gioiTinhSV, s.queQuanSV, s.emailSV, s.maLop,
+                s.soDienThoaiSV, s.anhSV, s.trangThaiSV);
+    }
+
+    public void sua() {
+        sql.suaSinhVien(mssv, hoTenSV, ngaySinhSV, gioiTinhSV, queQuanSV, emailSV, maLop, soDienThoaiSV, anhSV,
+                trangThaiSV);
+    }
+
+    public void sua(tblSinhVien s) {
+        sql.suaSinhVien(s.mssv, s.hoTenSV, s.ngaySinhSV, s.gioiTinhSV, s.queQuanSV, s.emailSV, s.maLop, s.soDienThoaiSV,
+                s.anhSV, s.trangThaiSV);
+    }
+
+    public void xoa() {
+        sql.xoaBanGhi("tblSinhVien", "MSSV = '" + this.mssv + "'");
+    }
+
+    public void truyVanTheoMa(String id) {
+        this.mssv = id;
+        this.hoTenSV = sql.timKiem("HoTenSV", "tblSinhVien", "MSSV = '" + id + "'");
+        this.ngaySinhSV = sql.timKiem("NgaySinhSV", "tblSinhVien", "MSSV = '" + id + "'");
+        this.gioiTinhSV = sql.timKiem("GioiTinhSV", "tblSinhVien", "MSSV = '" + id + "'");
+        this.queQuanSV = sql.timKiem("QueQuanSV", "tblSinhVien", "MSSV = '" + id + "'");
+        this.emailSV = sql.timKiem("EmailSV", "tblSinhVien", "MSSV = '" + id + "'");
+        this.maLop = sql.timKiem("MaLop", "tblSinhVien", "MSSV = '" + id + "'");
+        this.soDienThoaiSV = sql.timKiem("SoDienThoaiSV", "tblSinhVien", "MSSV = '" + id + "'");
+        this.anhSV = sql.timKiem("AnhSV", "tblSinhVien", "MSSV = '" + id + "'");
+        this.trangThaiSV = sql.timKiem("TrangThaiSV", "tblSinhVien", "MSSV = '" + id + "'");
+    }
+
+    public void setMSSV(String mssv) {
+        if (sql.kiemTraKhoaChinh("tblSinhVien", "MSSV", mssv)) {
+            request.setAttribute("loiMSSV", "MSSV đã tồn tại");
+            bao_loi = true;
+        } else if (mssv == null || mssv.trim().isEmpty()) {
+            request.setAttribute("loiMSSV", "MSSV không được để trống");
+            bao_loi = true;
+        } else {
+            this.mssv = mssv;
+        }
+    }
+
+    public void setHoTenSV(String hoTen) {
+        if (hoTen == null || hoTen.trim().isEmpty()) {
+            request.setAttribute("loiHoTenSV", "Họ tên không được để trống");
+            bao_loi = true;
+        } else {
+            this.hoTenSV = hoTen;
+        }
+    }
+
+    public String getMSSV() {
+        return mssv;
+    }
+
+    public String getHoTenSV() {
+        return hoTenSV;
+    }
+
+    public String getNgaySinhSV() {
+        return ngaySinhSV;
+    }
+
+    public String getGioiTinhSV() {
+        return gioiTinhSV;
+    }
+
+    public String getQueQuanSV() {
+        return queQuanSV;
+    }
+
+    public String getEmailSV() {
+        return emailSV;
+    }
+
+    public String getMaLop() {
+        return maLop;
+    }
+
+    public String getSoDienThoaiSV() {
+        return soDienThoaiSV;
+    }
+
+    public String getAnhSV() {
+        return anhSV;
+    }
+
+    public String getTrangThaiSV() {
+        return trangThaiSV;
+    }
+}

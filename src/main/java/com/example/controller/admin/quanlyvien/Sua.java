@@ -1,6 +1,8 @@
 package com.example.controller.admin.quanlyvien;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 import com.example.data.ChucNangSQL;
 import com.example.model.tblVien;
@@ -20,12 +22,17 @@ public class Sua extends HttpServlet {
         protected void doGet(HttpServletRequest req, HttpServletResponse resp)
                         throws ServletException, IOException {
                 String maVien = req.getParameter("MaVien");
-                req.setAttribute(
-                                "vien",
-                                sql.hienThi_DieuKien("tblVien", "MaVien='" + maVien + "'").get(0));
+                List<Map<String, Object>> danhSachVienList = sql.hienThi_DieuKien("tblVien", "MaVien='" + maVien + "'");
+                Map<String, Object> vien = danhSachVienList.get(0);
+                vien.put("NgayThanhLapVien",
+                                sql.doiDinhDangNgay_View(
+                                                vien.get("NgayThanhLapVien")
+                                                                .toString()));
 
-                req
-                                .getRequestDispatcher("/admin/danhsachvien/sua.jsp")
+                req.setAttribute("vien", vien);
+                System.err.println("danhSachVienList.get(0): " + danhSachVienList.get(0));
+
+                req.getRequestDispatcher("/admin/danhsachvien/sua.jsp")
                                 .forward(req, resp);
         }
 
@@ -39,9 +46,7 @@ public class Sua extends HttpServlet {
                                 .getParameter("SoDienThoaiVien")
                                 .trim();
                 final String emailVien = req.getParameter("EmailVien").trim();
-                final String ngayThanhLapVien = sql.doiDinhDangNgay(req
-                                .getParameter("NgayThanhLapVien")
-                                .trim());
+                final String ngayThanhLapVien = sql.doiDinhDangNgay(req.getParameter("NgayThanhLapVien").trim());
                 tblVien vien = new tblVien(maVien, tenVien, tenTruongVien,
                                 soDienThoaiVien, emailVien, ngayThanhLapVien);
                 vien.sua(vien);

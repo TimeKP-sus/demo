@@ -14,8 +14,13 @@ public class tblVien {
     public String emailVien;
     public String ngayThanhLapVien;
     public HttpServletRequest request;
+    public Boolean bao_loi = false;
 
     public tblVien() {
+    }
+
+    public tblVien(HttpServletRequest _request) {
+        this.request = _request;
     }
 
     public tblVien(String maVien, String tenVien, String tenTruongVien, String soDienThoaiVien,
@@ -73,19 +78,63 @@ public class tblVien {
     }
 
     public void setMaVien(String maVien) {
-        System.err.println("vao set ma vien");
         if (sql.kiemTraKhoaChinh("tblVien", "MaVien", maVien)) {
             request.setAttribute("loiMaVien", "Mã viện đã tồn tại");
+            bao_loi = true;
         } else if (maVien == null || maVien.trim().isEmpty()) {
             request.setAttribute("loiMaVien", "Mã viện cac không được để trống");
-
+            bao_loi = true;
         } else {
-            request.setAttribute("loiMaVien", "cac");
+            this.maVien = maVien;
         }
-
     }
 
-    // ! lay va sua cac thuoc tinh
+    public void setTenVien(String tenVien) {
+        if (tenVien == null || tenVien.trim().isEmpty()) {
+            request.setAttribute("loiTenVien", "Tên viện không được để trống");
+            bao_loi = true;
+        } else {
+            this.tenVien = tenVien;
+        }
+    }
+
+    public void setTenTruongVien(String tenTruongVien) {
+        if (tenTruongVien == null || tenTruongVien.trim().isEmpty()) {
+            request.setAttribute("loiTenTruongVien", "Tên trưởng viện không được để trống");
+            bao_loi = true;
+        } else {
+            this.tenTruongVien = tenTruongVien;
+        }
+    }
+
+    public void setSoDienThoaiVien(String soDienThoaiVien) {
+        if (soDienThoaiVien == null || soDienThoaiVien.trim().isEmpty()) {
+            request.setAttribute("loiSoDienThoaiVien", "Số điện thoại viện không được để trống");
+            bao_loi = true;
+        } else {
+            this.soDienThoaiVien = soDienThoaiVien;
+        }
+    }
+
+    public void setEmailVien(String emailVien) {
+        if (emailVien == null || emailVien.trim().isEmpty()) {
+            request.setAttribute("loiEmailVien", "Email viện không được để trống");
+            bao_loi = true;
+        } else {
+            this.emailVien = emailVien;
+        }
+    }
+
+    public void setNgayThanhLapVien(String ngayThanhLapVien) {
+        if (ngayThanhLapVien == null || ngayThanhLapVien.trim().isEmpty()) {
+            request.setAttribute("loiNgayThanhLapVien", "Ngày thành lập viện không được để trống");
+            bao_loi = true;
+        } else {
+            this.ngayThanhLapVien = ngayThanhLapVien;
+        }
+    }
+
+    // ! lay cac thuoc tinh
     public String getMaVien() {
         return maVien;
     }
@@ -94,39 +143,20 @@ public class tblVien {
         return tenVien;
     }
 
-    public void setTenVien(String tenVien) {
-        this.tenVien = tenVien;
-    }
-
     public String getTenTruongVien() {
         return tenTruongVien;
-    }
-
-    public void setTenTruongVien(String tenTruongVien) {
-        this.tenTruongVien = tenTruongVien;
     }
 
     public String getSoDienThoaiVien() {
         return soDienThoaiVien;
     }
 
-    public void setSoDienThoaiVien(String soDienThoaiVien) {
-        this.soDienThoaiVien = soDienThoaiVien;
-    }
-
     public String getEmailVien() {
         return emailVien;
-    }
-
-    public void setEmailVien(String emailVien) {
-        this.emailVien = emailVien;
     }
 
     public String getNgayThanhLapVien() {
         return ngayThanhLapVien;
     }
 
-    public void setNgayThanhLapVien(String ngayThanhLapVien) {
-        this.ngayThanhLapVien = ngayThanhLapVien;
-    }
 }
