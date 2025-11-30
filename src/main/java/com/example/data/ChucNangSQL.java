@@ -622,9 +622,9 @@ public class ChucNangSQL {
     }
 
     // =========================
-    // * Đổi định dạng hiển thị ngày tháng năm cho view
+    // * Đổi định dạng hiển thị ngày tháng năm chỉ dành cho view bên edit
     // =========================
-    public String doiDinhDangNgay_View(String ngayThangNamSQL) {
+    public String doiDinhDangNgay_ViewEdit(String ngayThangNamSQL) {
         String[] parts = ngayThangNamSQL.split("/");
         if (parts.length == 3) {
             return parts[2] + "-" + parts[1] + "-" + parts[0];

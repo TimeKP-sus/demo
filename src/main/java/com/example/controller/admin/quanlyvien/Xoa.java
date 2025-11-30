@@ -20,7 +20,7 @@ public class Xoa extends HttpServlet {
             throws ServletException, IOException {
 
         String maVien = req.getParameter("MaVien");
-
+        // ? Xóa viện theo Mã Viện
         tblVien vien = new tblVien();
         vien.maVien = maVien;
         vien.xoa();
@@ -30,3 +30,5 @@ public class Xoa extends HttpServlet {
     }
 
 }
+
+// !Ditme Mấy thằng chim bé

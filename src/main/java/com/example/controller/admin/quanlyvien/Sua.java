@@ -22,15 +22,17 @@ public class Sua extends HttpServlet {
         protected void doGet(HttpServletRequest req, HttpServletResponse resp)
                         throws ServletException, IOException {
                 String maVien = req.getParameter("MaVien");
-                List<Map<String, Object>> danhSachVienList = sql.hienThi_DieuKien("tblVien", "MaVien='" + maVien + "'");
-                Map<String, Object> vien = danhSachVienList.get(0);
-                vien.put("NgayThanhLapVien",
-                                sql.doiDinhDangNgay_View(
-                                                vien.get("NgayThanhLapVien")
-                                                                .toString()));
 
-                req.setAttribute("vien", vien);
-                System.err.println("danhSachVienList.get(0): " + danhSachVienList.get(0));
+                // ?Lấy danh sách viện có điều kiện theo Mã Viện
+                List<Map<String, Object>> danhSachVienList = sql.hienThi_DieuKien("tblVien", "MaVien='" + maVien + "'");
+
+                for (Map<String, Object> i : danhSachVienList) {
+                        // ?Định dạng lại ngày tháng về dạng năm-tháng-ngày trước khi hiển thị lên trang
+                        danhSachVienList.get(0).put("NgayThanhLapVien",
+                                        sql.doiDinhDangNgay_ViewEdit(i.get("NgayThanhLapVien").toString()));
+                }
+
+                req.setAttribute("vien", danhSachVienList.get(0));
 
                 req.getRequestDispatcher("/admin/danhsachvien/sua.jsp")
                                 .forward(req, resp);
@@ -47,6 +49,7 @@ public class Sua extends HttpServlet {
                                 .trim();
                 final String emailVien = req.getParameter("EmailVien").trim();
                 final String ngayThanhLapVien = sql.doiDinhDangNgay(req.getParameter("NgayThanhLapVien").trim());
+
                 tblVien vien = new tblVien(maVien, tenVien, tenTruongVien,
                                 soDienThoaiVien, emailVien, ngayThanhLapVien);
                 vien.sua(vien);

@@ -43,7 +43,7 @@ public class Them extends HttpServlet {
         vien.setSoDienThoaiVien(soDienThoaiVien);
         vien.setEmailVien(emailVien);
         vien.setNgayThanhLapVien(ngayThanhLapVien);
-
+        // ?Kiểm tra dữ liệu nếu bị thiếu
         if (vien.bao_loi) {
             // Trả lại dữ liệu đã nhập
             req.setAttribute("MaVien", maVien);
@@ -57,6 +57,7 @@ public class Them extends HttpServlet {
             req.getRequestDispatcher("/admin/danhsachvien/them.jsp").forward(req, resp);
             return;
         } else {
+            // ?Thêm viện vào cơ sở dữ liệu nếu không thiếu dữ liệu
             vien.them();
         }
         req.getSession().setAttribute("thongBao", "Thêm viện thành công");

@@ -3,6 +3,7 @@ package com.example.controller.admin.quanlyvien;
 import java.io.IOException;
 
 import com.example.data.ChucNangSQL;
+import com.example.model.tblVien;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -29,11 +30,13 @@ public class Index extends HttpServlet {
             HttpServletResponse resp)
             throws ServletException, IOException {
         String[] maVien = req.getParameterValues("MaVien");
-        System.out.println("Đã vào hàm doPost xóa viện");
-        System.out.println("MaVien nhận được: " + java.util.Arrays.toString(maVien));
+        // System.out.println("Đã vào hàm doPost xóa viện");
+        // System.out.println("MaVien nhận được: " + java.util.Arrays.toString(maVien));
         if (maVien != null) {
             for (String ma : maVien) {
-                sql.xoaBanGhi("tblVien", "MaVien = '" + ma + "'");
+                tblVien vien = new tblVien();
+                vien.maVien = ma;
+                vien.xoa();
                 System.out.println("Đã xóa viện với Mã Viện: " + ma);
             }
         }
